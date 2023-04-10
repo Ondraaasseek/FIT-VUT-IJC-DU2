@@ -75,7 +75,7 @@ Podmínky:
 	+----------+ 
 	| arr_ptr  | // ukazatel na dynamicky alokované pole ukazatelů 
 	+----------+ 
-		| 
+	    | 
 	    V 
 	  +---+ 
 	  |ptr| -->[(key,data),next]-->[(key,data),next]-->[(key,data),next]--| 
@@ -96,8 +96,8 @@ Podmínky:
 // následující řádky zabrání násobnému vložení: 
 #ifndef HTAB_H__ 
 #define HTAB_H__ 
-#include \<string.h\>  // size_t 
-#include \<stdbool.h\> // bool 
+#include <string.h>  // size_t 
+#include <stdbool.h> // bool 
 // Tabulka: 
 struct htab; // neúplná deklarace struktury - uživatel nevidí obsah 
 typedef struct htab htab_t; // typedef podle zadání 
