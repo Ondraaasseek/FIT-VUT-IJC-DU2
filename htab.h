@@ -5,7 +5,8 @@
 #define HTAB_H 
 
 #include <string.h>  // size_t 
-#include <stdbool.h> // bool 
+#include <stdbool.h> // bool
+#include <stdio.h> // stdio 
 // Tabulka: 
 struct htab; // neúplná deklarace struktury - uživatel nevidí obsah 
 typedef struct htab htab_t; // typedef podle zadání 

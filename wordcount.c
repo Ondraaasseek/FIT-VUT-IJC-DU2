@@ -1,7 +1,13 @@
+// wordcount.c
+// Řešení IJC-DU2, příklad b) 11.04.2023
+// Autor: Ondřej Novotný (xnovot2p)
+// Přeloženo: gcc 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "htab.h"
+#include "io.h"
 
 #define MAX_WORD_LENGTH 127 // maximum length of a word
 
@@ -17,7 +23,7 @@ int main(void) {
     }
 
     char word[MAX_WORD_LENGTH + 1]; // buffer for reading words
-    while (scanf("%127s", word) == 1) { // read one word at a time, up to 127 characters
+    while(read_word(word, MAX_WORD_LENGTH, stdin) != EOF) { // read one word at a time, up to 127 characters
         htab_pair_t *pair = htab_lookup_add(table, word); // try to find the word in the table
         if (pair == NULL) { // error while adding a new item
             fprintf(stderr, "Error: Failed to add an item to the hash table.\n");

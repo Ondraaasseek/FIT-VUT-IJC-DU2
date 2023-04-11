@@ -3,8 +3,7 @@
 // Autor: Ondřej Novotný (xnovot2p)
 // Přeloženo: gcc 
 
-#include <stdio.h>
-#include <ctype.h>
+#include "io.h"
 
 int read_word(char *s, int max, FILE *f) {
     int c;
