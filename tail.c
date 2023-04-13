@@ -2,6 +2,7 @@
 // Řešení IJC-DU2, příklad a) 31.03.2023
 // Autor: Ondřej Novotný (xnovot2p)
 // Přeloženo: gcc 9.4.0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -74,9 +75,9 @@ void cb_free(CircularBuffer *cb) {
 int main(int argc, char **argv) {
     int n = 10;
     FILE *fp = stdin;
-    char line[MAX_LINE_LEN + 2]; // extra space for \n and \0
+    char line[MAX_LINE_LEN + 2]; // navíc místo pro \n a \0
 
-    // parse command line arguments
+    // Parsuju argument
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-n") == 0 && i + 1 < argc) {
             n = atoi(argv[i + 1]);
@@ -90,14 +91,14 @@ int main(int argc, char **argv) {
         }
     }
 
-    // create circular buffer
+    // Vytvořím circular buffer
     CircularBuffer *cb = cb_create(n);
     if (cb == NULL) {
         fprintf(stderr, "Cannot create circular buffer\n");
         exit(1);
     }
 
-    // read lines and put them into circular buffer
+    // Čtu čádky a vkládám je do bufferu
     while (fgets(line, MAX_LINE_LEN + 2, fp) != NULL) {
         if (strlen(line) > MAX_LINE_LEN) {
             fprintf(stderr, "Line too long: %s\n", line);
@@ -107,12 +108,12 @@ int main(int argc, char **argv) {
         cb_put(cb, line);
     }
 
-    // print last n lines from circular buffer
+    // Vytisknu posledních n řádků z bufferu
     for (int i = 0; i < n && i < cb->count; i++) {
         printf("%s", cb_get(cb, i));
     }
 
-    // free buffer a zavřít file
+    // Uvolním buffer a zavřu soubor
     cb_free(cb);
     if (fp != stdin) fclose(fp);
 

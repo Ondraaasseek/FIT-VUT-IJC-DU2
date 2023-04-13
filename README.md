@@ -198,4 +198,4 @@ seq 1000000 2000000|shuf
 ---
 ## Commit message specification
 
-Using [AXLT-GITS](https://blok.neko.army/git).
+Using [AXLT-GITS](https://blok.neko.army/a/axlt-gits).

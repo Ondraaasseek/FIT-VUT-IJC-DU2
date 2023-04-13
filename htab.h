@@ -1,6 +1,7 @@
 // htab.h -- rozhraní knihovny htab (řešení IJC-DU2) 
 // Licence: žádná (Public domain) 
-// následující řádky zabrání násobnému vložení: 
+// následující řádky zabrání násobnému vložení:
+ 
 #ifndef HTAB_H 
 #define HTAB_H 
 

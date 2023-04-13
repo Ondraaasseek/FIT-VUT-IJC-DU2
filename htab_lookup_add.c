@@ -1,3 +1,8 @@
+// htab_lookup_add.c
+// Řešení IJC-DU2, příklad b) 13.04.2023
+// Autor: Ondřej Novotný (xnovot2p)
+// Přeloženo: gcc 9.4.0
+
 #include "htab.h"
 #include <stdlib.h>
 
@@ -27,7 +32,7 @@ htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key) {
     size_t index = htab_hash_function(key) % t->arr_size;
     struct htab_item *current = t->arr_ptr[index];
 
-    // Check if the key already exists in the table
+    // Kouknu jestli už je klíč v tablu
     while (current != NULL) {
         if (strcmp(current->data->key, key) == 0) {
             return current->data;
@@ -35,27 +40,27 @@ htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key) {
         current = current->next;
     }
 
-    // Key not found in the table, create a new pair
+    // Klíč nenalezen vytvořím nový pár
     struct htab_item *new_item = malloc(sizeof(struct htab_item));
     if (new_item == NULL) {
-        return NULL; // Error allocating memory
+        return NULL; // Chyba v alokaci paměti
     }
 
     new_item->data = malloc(sizeof(htab_pair_t));
     if (new_item->data == NULL) {
         free(new_item);
-        return NULL; // Error allocating memory
+        return NULL; // Chyba v alokaci paměti
     }
 
     new_item->data->key = strdup(key);
     if (new_item->data->key == NULL) {
         free(new_item->data);
         free(new_item);
-        return NULL; // Error allocating memory
+        return NULL; // Chyba v alokaci paměti
     }
     new_item->data->value = 0;
 
-    // Insert the new pair at the beginning of the linked list
+    // Vložím nový pár na začátek linked listu
     new_item->next = t->arr_ptr[index];
     t->arr_ptr[index] = new_item;
 

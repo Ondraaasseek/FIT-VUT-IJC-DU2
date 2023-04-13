@@ -1,3 +1,8 @@
+// io.h
+// Řešení IJC-DU2, příklad b) 13.04.2023
+// Autor: Ondřej Novotný (xnovot2p)
+// Přeloženo: gcc 9.4.0
+
 #ifndef IO_H
 #define IO_H
 

@@ -1,3 +1,8 @@
+// htab_erase.c
+// Řešení IJC-DU2, příklad b) 13.04.2023
+// Autor: Ondřej Novotný (xnovot2p)
+// Přeloženo: gcc 9.4.0
+
 #include "htab.h"
 
 struct htab_item {
@@ -18,9 +23,9 @@ bool htab_erase(htab_t *t, htab_key_t key) {
 
     while (current != NULL) {
         if (strcmp(current->data->key, key) == 0) {
-            // Found the pair to remove
+            // Našel jsem pár na smazání
             if (previous == NULL) {
-                // The pair is the first item in the linked list
+                // Pár je první předmět v linked listu
                 t->arr_ptr[index] = current->next;
             } else {
                 previous->next = current->next;
@@ -37,6 +42,6 @@ bool htab_erase(htab_t *t, htab_key_t key) {
         current = current->next;
     }
 
-    // The pair was not found in the table
+    // Pár nebyl nalezen v tablu
     return false;
 }
