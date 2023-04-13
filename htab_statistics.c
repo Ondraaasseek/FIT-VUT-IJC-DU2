@@ -32,5 +32,5 @@ void htab_statistics(const htab_t *t) {
 
     fprintf(stderr, "Minimum length: %zu\n", min);
     fprintf(stderr, "Maximum length: %zu\n", max);
-    fprintf(stderr, "Average length: %f\n", (double)sum / (double)t->size);
+    fprintf(stderr, "Average length: %f\n", (double)sum / (double)t->arr_size);
 }

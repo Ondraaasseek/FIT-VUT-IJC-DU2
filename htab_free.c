@@ -12,3 +12,7 @@ void htab_free(htab_t *t) {
     free(t->arr_ptr);
     free(t);
 }
+
+
+
+

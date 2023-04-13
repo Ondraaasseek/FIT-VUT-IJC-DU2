@@ -48,6 +48,11 @@ htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key) {
     }
 
     new_item->data->key = strdup(key);
+    if (new_item->data->key == NULL) {
+        free(new_item->data);
+        free(new_item);
+        return NULL; // Error allocating memory
+    }
     new_item->data->value = 0;
 
     // Insert the new pair at the beginning of the linked list

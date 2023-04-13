@@ -24,9 +24,6 @@ wordcount: wordcount.o io.o libhtab.a
 wordcountDynamic: wordcount.o io.o $(LIB_TARGET)
 	$(CC) -o $@ $^ $(CFLAGS) -L. -lhtab
 
-wordcount+: wordcount.cc
-	$(CXX) -o $@ $^ $(CXXFLAGS)
-
 io.o: io.c io.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -61,11 +58,11 @@ $(LIB_TARGET): $(HTAB_DYN_OBJS)
 	$(CC) $(CFLAGS) -c -fPIC $< -o $@
 
 clean:
-	rm -f *.o *.so *.a tail wordcount wordcount+ wordcountDynamic xnovot2p.zip
+	rm -f *.o *.so *.a tail wordcount wordcountDynamic xnovot2p.zip
 
-run: tail
+run: tail wordcount wordcountDynamic
 	./tail test.txt
 	./wordcount < test.txt
 
 zip:
-	zip xnovot2p.zip *.c *.h *.cc *.hh makefile
+	zip xnovot2p.zip *.c *.h makefile
