@@ -11,7 +11,7 @@ CXXFLAGS = -std=c++17 -pedantic -Wall -Wextra -O2
 LDFLAGS = -fPIC
 
 # Targets
-.PHONY: all clean run
+.PHONY: all clean zip
 
 all: tail wordcount wordcountDynamic
 
@@ -59,11 +59,6 @@ $(LIB_TARGET): $(HTAB_DYN_OBJS)
 
 clean:
 	rm -f *.o *.so *.a tail wordcount wordcountDynamic xnovot2p.zip
-
-run: tail wordcount wordcountDynamic
-	seq 1000000 2000000|shuf > test.txt
-	./tail test.txt
-	./wordcount < test.txt
 
 zip:
 	zip xnovot2p.zip *.c *.h makefile
