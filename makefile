@@ -35,32 +35,20 @@ wordcount.o: wordcount.c
 
 # HTAB library
 
-HTAB_SRCS = \
-	htab_hash_function.c \
-	htab_init.c \
-	htab_free.c \
-	htab_clear.c \
-	htab_statistics.c \
-	htab_size.c \
-	htab_bucket_count.c \
-	htab_lookup_add.c \
-	htab_for_each.c
-HTAB_OBJS = $(HTAB_SRCS:.c=.o)
-HTAB_DYN_OBJS = $(HTAB_SRCS:.c=-dyn.o)
-
-libhtab.a: $(HTAB_OBJS)
+libhtab.a: htab.o
 	ar rcs $@ $^
 
-$(LIB_TARGET): $(HTAB_DYN_OBJS)
+$(LIB_TARGET): htab-dyn.o
 	$(CC) -shared -o $@ $^ $(LDFLAGS)
 
-%-dyn.o: %.c htab.h
+htab-dyn.o: htab.c htab.h
 	$(CC) $(CFLAGS) -c -fPIC $< -o $@
 
 clean:
 	rm -f *.o *.so *.a tail wordcount wordcountDynamic xnovot2p.zip
 
 run: tail wordcount wordcountDynamic
+	seq 1000000 2000000|shuf > test.txt
 	./tail test.txt
 	./wordcount < test.txt
 
