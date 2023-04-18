@@ -1,5 +1,5 @@
 # Ondřej Novotný
-LC_ALL = cs_CZ.utf8
+# LC_ALL = cs_CZ.utf8
 
 # Compilers
 CC = gcc
@@ -13,7 +13,10 @@ LDFLAGS = -fPIC
 # Targets
 .PHONY: all clean zip run
 
-all: tail wordcount wordcountDynamic
+all: tail wordcount wordcountDynamic comp
+
+comp: wordcount.cc 
+	$(CXX) $(CXXFLAGS) wordcount.cc -o wordcount-cpp
 
 tail: tail.o io.o
 	$(CC) -o $@ $^
@@ -62,10 +65,11 @@ run: wordcount wordcountDynamic tail
 	./tail < test.txt
 	./wordcount < test.txt
 	./wordcountDynamic < test.txt
+	./wordcount-cpp < test.txt
 	rm test.txt
 
 clean:
-	rm -f *.o *.so *.a tail wordcount wordcountDynamic xnovot2p.zip
+	rm -f *.o *.so *.a tail wordcount wordcountDynamic wordcount-cpp xnovot2p.zip
 
 zip:
-	zip xnovot2p.zip *.c *.h makefile
+	zip xnovot2p.zip *.c *.cc *.h makefile
