@@ -1,5 +1,4 @@
 # Ondřej Novotný
-# LC_ALL = cs_CZ.utf8
 
 # Compilers
 CC = gcc
@@ -60,7 +59,7 @@ $(LIB_TARGET): $(HTAB_DYN_OBJS)
 %-dyn.o: %.c htab.h
 	$(CC) $(CFLAGS) -c -fPIC $< -o $@
 
-run: wordcount wordcountDynamic tail
+run: wordcount wordcountDynamic tail comp
 	seq 1000000 2000000|shuf > test.txt
 	./tail < test.txt
 	./wordcount < test.txt
