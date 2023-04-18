@@ -17,7 +17,7 @@ void print_pair(htab_pair_t *pair) {
 }
 
 int main(void) {
-    htab_t *table = htab_init(12500);  // Vytvořím HashTable s 12500 bucketama aby na AMD Ryzen 5 3600 byl runtime programu pro seq 1000000 2000000|shuf byl běh programu na merlinovi 3,51 sekund
+    htab_t *table = htab_init(12500);  // Vytvořím HashTable s 12500 bucketama aby byl runtime programu pro seq 1000000 2000000|shuf na merlinovi 3,51 sekund
     if (table == NULL) {
         fprintf(stderr, "Error: Failed to allocate memory for the hash table.\n");
         return EXIT_FAILURE;
