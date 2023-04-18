@@ -37,9 +37,10 @@ int main(void) {
     
     // iteruju přes všechny položky v tabulce a vypíšu je
     htab_for_each(table, print_pair);
-
+    
+#ifdef STATISTICS
     htab_statistics(table);  // Vypíšu statistiku ohledně tabulky
-
+#endif
     htab_clear(table);  // Uvolním všechny data v Tablu
     htab_free(table);   // Uvolním ten table
     return EXIT_SUCCESS;

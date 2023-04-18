@@ -12,13 +12,16 @@ LDFLAGS = -fPIC
 # Targets
 .PHONY: all clean zip run
 
-all: tail wordcount wordcountDynamic comp
+all: tail wordcount wordcountStatistic wordcountDynamic comp
 
 comp: wordcount.cc 
 	$(CXX) $(CXXFLAGS) wordcount.cc -o wordcount-cpp
 
 tail: tail.o io.o
 	$(CC) -o $@ $^
+
+wordcountStatistic: wordcount-stat.o io.o libhtab.a
+	$(CC) -o $@ $^ $(CFLAGS)
 
 wordcount: wordcount.o io.o libhtab.a
 	$(CC) -o $@ $^ $(CFLAGS)
@@ -34,6 +37,9 @@ tail.o: tail.c
 
 wordcount.o: wordcount.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+wordcount-stat.o: wordcount.c
+	$(CC) -DSTATISTICS $(CFLAGS) -c $< -o $@
 
 # HTAB library
 
@@ -59,16 +65,17 @@ $(LIB_TARGET): $(HTAB_DYN_OBJS)
 %-dyn.o: %.c htab.h
 	$(CC) $(CFLAGS) -c -fPIC $< -o $@
 
-run: wordcount wordcountDynamic tail comp
+run: wordcount wordcountStatistic wordcountDynamic tail comp
 	seq 1000000 2000000|shuf > test.txt
 	./tail < test.txt
 	./wordcount < test.txt
+	./wordcountStatistic < test.txt
 	./wordcountDynamic < test.txt
 	./wordcount-cpp < test.txt
 	rm test.txt
 
 clean:
-	rm -f *.o *.so *.a tail wordcount wordcountDynamic wordcount-cpp xnovot2p.zip
+	rm -f *.o *.so *.a tail wordcount wordcountDynamic wordcountStatistic wordcount-cpp xnovot2p.zip
 
 zip:
 	zip xnovot2p.zip *.c *.cc *.h makefile
